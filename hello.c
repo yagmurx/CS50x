@@ -1,4 +1,6 @@
-/* Enter your name
+/*
+Stanford's CS50x Pset1 Task1
+Enter your name
 print "hi, name"
 
 August 2020

@@ -1,4 +1,5 @@
 /*
+Stanford's CS50x Pset1 Task5
 Enter a Credit Card Number 
 Using Luhn's Algorithm
 Output AMEX, MASTERCARD, VISA or INVALID

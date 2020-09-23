@@ -1,5 +1,6 @@
-/* Giving minimum coin to customer
-
+/* 
+Stanford's CS50x Pset1 Task4
+Giving minimum coin to customer
 September 2020
 */
 

@@ -15,8 +15,8 @@ September 2020
 #include <string.h>
 #include <ctype.h>
 
-int translate(string keyword, int i); // Translate letters to alphabet index 1 to 26
-bool check(string keyword); // Creating a check funct (keyword must consist only letters)
+bool check(string keyword);
+int translate(string keyword, int index);
 
 int main(int argc, string argv[])
 {
@@ -26,43 +26,50 @@ int main(int argc, string argv[])
         printf("Usage: ./caesar key \n");
         return 1;
     }
-
-    string mes = get_string("plaintext: ");
-    int len = strlen(mes);
+    
+    string plain = get_string("Plaintext: ");
+    int plen = strlen(plain);
     int chip;
 
     printf("ciphertext: ");
     int j=0;
-    for(int i=0; i<len; i++)
+    for(int i=0; i<plen; i++)
     {
-        j = i%strlen(keyword); //Keyword can be shorter than text. It turns to back first letter.
-
-        chip = mes[i] + translate(keyword, j);
-        if(isupper(mes[i])) // if a letter is upper case, it's ASCII between 65 to 90
+        if(isalnum(plain[i]))
+        {
+            chip = plain[i] + translate(keyword, j);
+            
+               if(isupper(plain[i])) 
                 {
-                    if(chip > 90) // if ciphed bigger than 90 it isn't upper case
-                        printf("%c", chip-26); //turn upper
+                    if(chip > 90)
+                        printf("%c", chip-26);
                     else
                         printf("%c", chip);
                 }
-                else if(islower(mes[i])) // if a letter is lower case, it's ASCII between 97 to 122
+                else if(islower(plain[i]))
                 {
-                    if(chip > 122) // if ciphed bigger than 122 it isn't lower case
-                        printf("%c", chip-26); //turn lower 
+                    if(chip > 122)
+                        printf("%c", chip-26);
                     else
                         printf("%c", chip);
                 } 
-                else
-                    printf("%c", mes[i]);
-            }
-            printf("\n");
+        j++;
+        if(j >= strlen(keyword))
+            j=0;
+
+        }
+        else
+            printf("%c", plain[i]);
+    }
+    printf("\n"); 
+
     return 0;
 }
 
 bool check(string keyword)
 {
-     if(keyword)
-     {
+    if(keyword)
+    {
         for(int i=0; i<strlen(keyword); i++)
         {
             if(isdigit(keyword[i]))
@@ -71,14 +78,17 @@ bool check(string keyword)
     }
     else
         return false;
+
     return true;
 }
 
-int translate(string keyword, int i)
+int translate(string keyword, int index)
 {
-    if(keyword[i] > 90)
-       keyword[i] = toupper(keyword[i]); 
+    int key=0;
+    if(keyword[index] > 90)
+        keyword[index] = toupper(keyword[index]);
 
-    int key = keyword[i] - 64;
+    key = keyword[index] - 65;
+
     return key;
 }
